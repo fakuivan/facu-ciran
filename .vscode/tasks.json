@@ -1,0 +1,26 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Set Notebook Title",
+            "type": "shell",
+            "command": "python3",
+            "args": [
+                "-c",
+                "import sys, json\nwith open(sys.argv[1], \"r\") as f:\n data = json.load(f)\ndata[\"metadata\"][\"title\"] = sys.argv[2]\nwith open(sys.argv[1], \"w\") as f:\n json.dump(data, f, ensure_ascii=False, indent=1)",
+                "${file}",
+                "${input:documentTitle}"
+            ],
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "type": "promptString",
+            "id": "documentTitle",
+            "description": "Document title for Notebook"
+        }
+    ]
+}
